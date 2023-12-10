@@ -65,7 +65,7 @@ namespace Practice_Linq
         static void Query2(List<FootballGame> games)
         {
             //Query 2: Вивести Friendly матчі збірної Італії, які вона провела з 2020 року.  
-            var selectedGames = games.OrderBy(game => game.Date).Where(game => (game.Tournament == "Friendly" && game.Date.Year >= 2020 && (game.Away_team == "Italy" || game.Home_team == "Italy")));
+            var selectedGames = games.OrderBy(game => game.Date).Where(game => game.Tournament == "Friendly" && game.Date.Year >= 2020 && (game.Away_team == "Italy" || game.Home_team == "Italy"));
 
 
             // Перевірка
@@ -84,14 +84,16 @@ namespace Practice_Linq
         {
             //Query 3: Вивести всі домашні матчі збірної Франції за 2021 рік, де вона зіграла у нічию.
 
-            var selectedGames = games;   // Корегуємо запит !!!
+            var selectedGames = games.OrderBy(game => game.Date).Where(game => game.Home_team == "France" && game.Country == "France" && game.Home_score == game.Away_score && game.Date.Year == 2021 );
 
             // Перевірка
             Console.WriteLine("\n======================== QUERY 3 ========================");
 
             // див. приклад як має бути виведено:
-
-
+            foreach (var game in selectedGames)
+            {
+                Console.WriteLine($"{game.Date:dd.MM.yyyy} {game.Home_team} - {game.Away_team}, Score: {game.Home_score} - {game.Away_score}, Country: {game.Country}");
+            }
         }
 
         // Запит 4
